@@ -1,38 +1,35 @@
-# Nome do Projeto:
+# Nome do Projeto: Case Técnico - Alura
 
 # Descrição:
 
-Uma breve descrição do seu projeto, incluindo o que ele faz, para quem é útil e quais problemas ele resolve.
+Implementa alguns casos de uso associados a uma plataforma de gestão e oferta de cursos on-line.
 
 # Funcionalidades:
 
-    Lista as principais funcionalidades do seu projeto.
-    Seja conciso e destaque os recursos mais importantes.
+    - Listagem de dados de um usuário;
+    - Inativação e listagem de cursos;
+    - realiza matrícula em um curso;
+    - notifica um instrutor quando houver avaliações de cursos com notas especificas;
 
 # Instalação:
 
-Explique como instalar e configurar o seu projeto. Inclua instruções passo a passo, screenshots ou links para documentação detalhada.
+Certifique de ter o Java 21 instalado em sua máquina, bem como o Maven.
+
+Sugestão: use o sdkman para tal. Link: https://sdkman.io/
 
 # Uso:
 
-Descreva como usar o seu projeto. Inclua exemplos de casos de uso, comandos, tutoriais ou documentação relevante.
+Para executar a aplicação localmente:
 
-# Contribuindo:
+- entre no diretório docker com o comando: `cd docker`
+- execute o comando `docker compose up -d`
+- pelo terminal, por exemplo, execute o comando `mvn spring-boot:run`
+    
+Os endpoints estão acessíveis pela interface do Swagger, no link: http://localhost:8080/swagger-ui/index.html
 
-Se você deseja que as pessoas contribuam com o seu projeto, forneça instruções claras sobre como fazê-lo. Inclua informações sobre como configurar o ambiente de desenvolvimento, enviar pull requests e reportar bugs.
 
-# Licença:
-
-Especifique a licença sob a qual seu projeto é licenciado.
 
 # Contato:
 
-Forneça informações de contato para que as pessoas possam entrar em contato com você se tiverem dúvidas ou precisarem de ajuda.
-
-Exemplos Adicionais:
-
-    Inclua uma seção "Começando" para fornecer um guia rápido para iniciantes.
-    Adicione uma seção "Perguntas Frequentes" (FAQ) para responder a perguntas comuns.
-    Mostre exemplos de como usar seu projeto em diferentes cenários.
-    Crie um "Roteiro" para descrever seus planos futuros para o projeto.
-    Use badges para destacar recursos importantes ou status do projeto (por exemplo, versão estável, em desenvolvimento, etc.).
+- email: `alexandrepontesgyn@gmail.com`
+- linkedin: [Acesse aqui](https://www.linkedin.com/in/ap-queiroz/)
