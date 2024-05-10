@@ -2,14 +2,19 @@ spring:
   application:
     name: technicalchallenge
   datasource:
-    url: jdbc:mysql://localhost:3306/alura
+    url: jdbc:mysql://localhost:3306/alura?allowPublicKeyRetrieval=true&useSSL=false
     username: dbuser
     password: user@123
   jpa:
     hibernate:
       ddl-auto: none
   flyway:
-    url: jdbc:mysql://localhost:3306/alura
+    enabled: true
+    baseline-on-migrate: true
+    url: jdbc:mysql://localhost:3306/alura?allowPublicKeyRetrieval=true&useSSL=false
     user: dbuser
     password: user@123
     locations: classpath:db/migration
+springdoc:
+  api-docs:
+    path: /api-docs
