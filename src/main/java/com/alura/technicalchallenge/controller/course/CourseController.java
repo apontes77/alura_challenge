@@ -51,10 +51,10 @@ public class CourseController {
 
                 return ResponseEntity.created(createdUri).build();
             } else {
-                return ResponseEntity.badRequest().body("Falha ao criar o curso");
+                return ResponseEntity.badRequest().body("Creating course has failed");
             }
         } catch (Exception e) {
-            logger.error("Erro interno ao criar o curso", e);
+            logger.error("Internal error creating course", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

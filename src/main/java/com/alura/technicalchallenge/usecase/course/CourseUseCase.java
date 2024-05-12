@@ -46,12 +46,6 @@ public class CourseUseCase {
         return Optional.empty();
     }
 
-    private Boolean isUserInstructor(String username) {
-        Role role = userService.obtainUserRole(username);
-
-        return role.equals(Role.INSTRUCTOR);
-    }
-
     public CourseEntity inactivatingCourse(String courseCode) {
         return service.inactivatingCourse(courseCode);
     }
@@ -60,6 +54,12 @@ public class CourseUseCase {
         Page<CourseEntity> coursesByStatus = service.getCoursesByStatus(status, pageable);
 
         return toResponse(coursesByStatus);
+    }
+
+    private Boolean isUserInstructor(String username) {
+        Role role = userService.obtainUserRole(username);
+
+        return role.equals(Role.INSTRUCTOR);
     }
 
 
