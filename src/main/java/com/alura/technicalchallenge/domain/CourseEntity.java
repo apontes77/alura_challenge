@@ -71,4 +71,12 @@ public class CourseEntity {
     public LocalDateTime getInactivationDate() {
         return inactivationDate;
     }
+
+    public void setStatus(CourseStatus status) {
+        this.status = status;
+    }
+
+    public void setInactivationDate(LocalDateTime inactivationDate) {
+        this.inactivationDate = inactivationDate;
+    }
 }

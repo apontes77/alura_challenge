@@ -25,13 +25,13 @@ public class UserUseCase {
     }
 
     public UserEntity registerUser(UserRegisterRequest request) {
-        Optional<UserEntity> userEntity = validateUserExistence(request.getEmail(), request.getUsername());
+        Optional<UserEntity> existingUser = validateUserExistence(request.getEmail(), request.getUsername());
 
-        if(userEntity.isPresent()) {
+        existingUser.ifPresent(user -> {
             throw new UserAlreadyExistsException("User already exists");
-        }
+        });
 
-        return service.saveUser(userEntity.get());
+        return service.saveUser(existingUser.orElseThrow(() -> new IllegalArgumentException("UserEntity not present")));
     }
 
     private Optional<UserEntity> validateUserExistence(String email, String username) {
