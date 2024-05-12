@@ -1,6 +1,7 @@
 package com.alura.technicalchallenge.services.user;
 
 import com.alura.technicalchallenge.domain.UserEntity;
+import com.alura.technicalchallenge.domain.enums.Role;
 import com.alura.technicalchallenge.domain.exceptions.UserNotFoundException;
 import com.alura.technicalchallenge.repository.UserRepository;
 import org.apache.catalina.User;
@@ -29,5 +30,10 @@ public class UserService {
 
     public UserEntity saveUser(UserEntity userEntity) {
         return repository.save(userEntity);
+    }
+
+    public Role obtainUserRole(String username) {
+        UserEntity user = this.getUser(username);
+        return user.getRole();
     }
 }
