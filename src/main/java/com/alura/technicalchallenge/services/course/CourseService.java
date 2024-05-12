@@ -38,4 +38,8 @@ public class CourseService {
 
         return repository.findByStatusContaining(status, pageable);
     }
+
+    public CourseEntity getCourseByCode(String code) {
+        return repository.findByCode(code);
+    }
 }
