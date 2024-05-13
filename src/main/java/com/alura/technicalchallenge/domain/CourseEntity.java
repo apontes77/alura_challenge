@@ -6,12 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "course")
+@Table(name = "course_tb")
+@Getter
+@Setter
+@NoArgsConstructor
 public class CourseEntity {
 
     @Id
@@ -35,48 +40,5 @@ public class CourseEntity {
         this.status = status;
         this.creationDate = creationDate;
         this.inactivationDate = null;
-    }
-
-    public CourseEntity() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public CourseStatus getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public LocalDateTime getInactivationDate() {
-        return inactivationDate;
-    }
-
-    public void setStatus(CourseStatus status) {
-        this.status = status;
-    }
-
-    public void setInactivationDate(LocalDateTime inactivationDate) {
-        this.inactivationDate = inactivationDate;
     }
 }
