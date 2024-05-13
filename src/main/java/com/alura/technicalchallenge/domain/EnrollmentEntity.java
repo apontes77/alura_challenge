@@ -7,14 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "enrollment_tb")
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 public class EnrollmentEntity {
 
@@ -24,4 +22,11 @@ public class EnrollmentEntity {
     private Long userId;
     private Long courseId;
     private LocalDateTime enrollmentDate;
+
+    public EnrollmentEntity(Long id, Long userId, Long courseId, LocalDateTime enrollmentDate) {
+        this.id = id;
+        this.userId = userId;
+        this.courseId = courseId;
+        this.enrollmentDate = enrollmentDate;
+    }
 }

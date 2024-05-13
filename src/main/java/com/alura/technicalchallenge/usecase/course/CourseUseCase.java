@@ -19,12 +19,12 @@ import static com.alura.technicalchallenge.controller.course.response.CourseResp
 @Component
 public class CourseUseCase {
 
-    private final CourseService service;
+    private final CourseService courseService;
 
     private final UserService userService;
 
     public CourseUseCase(CourseService service, UserService userService) {
-        this.service = service;
+        this.courseService = service;
         this.userService = userService;
     }
 
@@ -40,18 +40,18 @@ public class CourseUseCase {
                     CourseStatus.ACTIVE,
                     LocalDateTime.now()
             );
-            return Optional.of(service.registerCourse(course));
+            return Optional.of(courseService.registerCourse(course));
         }
 
         return Optional.empty();
     }
 
     public CourseEntity inactivatingCourse(String courseCode) {
-        return service.inactivatingCourse(courseCode);
+        return courseService.inactivatingCourse(courseCode);
     }
 
     public Page<CourseResponse> adaptingPageableListOfCourses(String status, Pageable pageable) {
-        Page<CourseEntity> coursesByStatus = service.getCoursesByStatus(status, pageable);
+        Page<CourseEntity> coursesByStatus = courseService.getCoursesByStatus(status, pageable);
 
         return toResponse(coursesByStatus);
     }

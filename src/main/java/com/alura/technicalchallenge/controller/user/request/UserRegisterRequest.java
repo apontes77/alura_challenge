@@ -4,12 +4,8 @@ import com.alura.technicalchallenge.domain.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class UserRegisterRequest {
 
     private String name;

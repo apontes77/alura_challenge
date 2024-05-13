@@ -8,6 +8,7 @@ import com.alura.technicalchallenge.services.user.UserService;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -20,8 +21,8 @@ public class UserUseCase {
         this.service = service;
     }
 
-    public UserEntity getUserInformation(UserRequest request) {
-       return service.getUser(request.username());
+    public UserEntity getUserInformation(String username) {
+       return service.getUser(username);
     }
 
     public UserEntity registerUser(UserRegisterRequest request) {
@@ -31,7 +32,17 @@ public class UserUseCase {
             throw new UserAlreadyExistsException("User already exists");
         });
 
-        return service.saveUser(existingUser.orElseThrow(() -> new IllegalArgumentException("UserEntity not present")));
+         final UserEntity user = new UserEntity(
+                 null,
+                 request.getName(),
+                 request.getUsername(),
+                 request.getEmail(),
+                 request.getPassword(),
+                 request.getRole(),
+                 LocalDateTime.now()
+        );
+
+        return service.saveUser(user);
     }
 
     private Optional<UserEntity> validateUserExistence(String email, String username) {

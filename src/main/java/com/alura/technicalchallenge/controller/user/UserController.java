@@ -1,7 +1,6 @@
 package com.alura.technicalchallenge.controller.user;
 
 import com.alura.technicalchallenge.controller.user.request.UserRegisterRequest;
-import com.alura.technicalchallenge.controller.user.request.UserRequest;
 import com.alura.technicalchallenge.controller.user.response.UserResponse;
 import com.alura.technicalchallenge.domain.UserEntity;
 import com.alura.technicalchallenge.domain.exceptions.UserAlreadyExistsException;
@@ -11,7 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
@@ -32,9 +36,9 @@ public class UserController {
         this.useCase = useCase;
     }
 
-    @GetMapping
-    public ResponseEntity<UserResponse> obtainUserData(@RequestBody UserRequest request) {
-        var userObtained = useCase.getUserInformation(request);
+    @GetMapping(value = "/{username}")
+    public ResponseEntity<UserResponse> obtainUserData(@PathVariable String username) {
+        var userObtained = useCase.getUserInformation(username);
 
         final UserResponse userResponse = UserResponse.fromEntity(userObtained);
         return ResponseEntity.ok(userResponse);
@@ -43,6 +47,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> registerUser(@RequestBody @Valid UserRegisterRequest request) {
+
         try {
             UserEntity userEntity = useCase.registerUser(request);
             URI createdUri = URI.create(USER_CREATED_URI.replace("{userId}", userEntity.getId().toString()));

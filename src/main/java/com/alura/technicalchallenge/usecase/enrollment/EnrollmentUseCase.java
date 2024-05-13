@@ -36,7 +36,7 @@ public class EnrollmentUseCase {
             UserEntity user = userService.getUser(enrollmentRequest.getUsername());
             CourseEntity course = courseService.getCourseByCode(enrollmentRequest.getCode());
 
-            EnrollmentEntity toBeSaved = new EnrollmentEntity(user.getId(), course.getId(), LocalDateTime.now());
+            EnrollmentEntity toBeSaved = new EnrollmentEntity(null, user.getId(), course.getId(), LocalDateTime.now());
             return enrollmentService.register(toBeSaved);
         }
 

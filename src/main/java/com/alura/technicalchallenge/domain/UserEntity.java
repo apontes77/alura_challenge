@@ -11,14 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_tb")
 @Getter
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
 
@@ -39,4 +37,14 @@ public class UserEntity {
     private Role role;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
+
+    public UserEntity(Long id, String name, String username, String email, String password, Role role, LocalDateTime creationDate) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.creationDate = creationDate;
+    }
 }
