@@ -2,6 +2,8 @@ package com.alura.technicalchallenge.domain;
 
 import com.alura.technicalchallenge.domain.enums.CourseStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public class CourseEntity {
     private String code;
     private String instructor;
     private String description;
+    @Enumerated(EnumType.STRING)
     private CourseStatus status;
     private LocalDateTime creationDate;
     private LocalDateTime inactivationDate;

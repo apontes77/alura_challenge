@@ -4,11 +4,12 @@ import com.alura.technicalchallenge.controller.course.request.CourseRequest;
 import com.alura.technicalchallenge.controller.course.response.CourseResponse;
 import com.alura.technicalchallenge.domain.CourseEntity;
 import com.alura.technicalchallenge.usecase.course.CourseUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -59,7 +59,10 @@ public class CourseController {
         }
     }
 
-    @PutMapping(value = "/{course-code}")
+    @PutMapping(value = "/{courseCode}")
+    @Operation(parameters = {
+            @Parameter(name = "courseCode")
+    })
     public ResponseEntity<Void> inactivatingCourse(@PathVariable String courseCode) {
         final CourseEntity courseEntity = courseUseCase.inactivatingCourse(courseCode);
 
@@ -70,9 +73,15 @@ public class CourseController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping(value = "/{status}")
-    public ResponseEntity<Page<CourseResponse>> listCourses(@PathVariable String status, Pageable pageable) {
-        Page<CourseResponse> courseResponses = courseUseCase.adaptingPageableListOfCourses(status, pageable);
+    @GetMapping(value = "/{status}/{requestedPage}")
+    @Operation(parameters = {
+            @Parameter(name = "status"),
+            @Parameter(name = "requestedPage")
+    })
+    public ResponseEntity<Page<CourseResponse>> listCourses(
+            @PathVariable String status,
+            @PathVariable Integer requestedPage) {
+        Page<CourseResponse> courseResponses = courseUseCase.adaptingPageableListOfCourses(status, requestedPage);
         return ResponseEntity.ok(courseResponses);
     }
 }

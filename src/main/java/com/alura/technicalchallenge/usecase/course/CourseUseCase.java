@@ -8,6 +8,7 @@ import com.alura.technicalchallenge.domain.enums.Role;
 import com.alura.technicalchallenge.services.course.CourseService;
 import com.alura.technicalchallenge.services.user.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +38,7 @@ public class CourseUseCase {
                     request.getCode(),
                     request.getUsername(),
                     request.getDescription(),
-                    CourseStatus.ACTIVE,
+                    CourseStatus.ACTIVE ,
                     LocalDateTime.now()
             );
             return Optional.of(courseService.registerCourse(course));
@@ -50,8 +51,8 @@ public class CourseUseCase {
         return courseService.inactivatingCourse(courseCode);
     }
 
-    public Page<CourseResponse> adaptingPageableListOfCourses(String status, Pageable pageable) {
-        Page<CourseEntity> coursesByStatus = courseService.getCoursesByStatus(status, pageable);
+    public Page<CourseResponse> adaptingPageableListOfCourses(String status, Integer requestedPage) {
+        Page<CourseEntity> coursesByStatus = courseService.getCoursesByStatus(status, PageRequest.of(requestedPage, 10));
 
         return toResponse(coursesByStatus);
     }

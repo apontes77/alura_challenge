@@ -36,7 +36,7 @@ public class CourseService {
 
     public Page<CourseEntity> getCoursesByStatus(String status, Pageable pageable) {
 
-        return repository.findByStatusContaining(status, pageable);
+        return repository.findByStatus(CourseStatus.valueOf(status), pageable);
     }
 
     public CourseEntity getCourseByCode(String code) {
