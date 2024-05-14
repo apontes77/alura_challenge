@@ -1,4 +1,4 @@
-# Nome do Projeto: Case Técnico - Alura
+# Case Técnico - Alura
 
 # Descrição:
 
