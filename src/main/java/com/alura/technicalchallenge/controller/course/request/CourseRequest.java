@@ -1,38 +1,19 @@
 package com.alura.technicalchallenge.controller.course.request;
 
 import com.alura.technicalchallenge.controller.course.validation.ValidCourseCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 public class CourseRequest {
 
-    private String name;
+    private final String name;
     @ValidCourseCode
-    private String code;
-    private String username;
-    private String description;
+    private final String code;
+    private final String username;
+    private final String description;
 
-    public CourseRequest(String name, String code, String username, String description) {
-        this.name = name;
-        this.code = code;
-        this.username = username;
-        this.description = description;
-    }
-
-    public CourseRequest() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

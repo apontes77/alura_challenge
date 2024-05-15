@@ -2,7 +2,10 @@ package com.alura.technicalchallenge.controller.enrollment;
 
 import com.alura.technicalchallenge.controller.course.CourseController;
 import com.alura.technicalchallenge.controller.enrollment.request.EnrollmentRequest;
+import com.alura.technicalchallenge.controller.enrollment.response.ErrorResponse;
 import com.alura.technicalchallenge.domain.EnrollmentEntity;
+import com.alura.technicalchallenge.domain.exceptions.CourseInactiveException;
+import com.alura.technicalchallenge.domain.exceptions.UserAlreadyEnrolledException;
 import com.alura.technicalchallenge.usecase.enrollment.EnrollmentUseCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +33,7 @@ public class EnrollmentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> creatingEnrollment(@RequestBody EnrollmentRequest enrollmentRequest) {
+    public ResponseEntity<Object> creatingEnrollment(@RequestBody EnrollmentRequest enrollmentRequest) {
         try {
             var enrollmentMade = enrollmentUseCase.doEnrollment(enrollmentRequest);
 
@@ -40,12 +43,18 @@ public class EnrollmentController {
                 URI createdUri = URI.create(ENROLLMENT_CREATED_URI.replace("{enrollmentId}", enrollmentEntity.getId().toString()));
 
                 return ResponseEntity.created(createdUri).build();
-            } else {
-                return ResponseEntity.badRequest().body("Creating enrollment has failed");
             }
+        } catch (UserAlreadyEnrolledException e) {
+            ErrorResponse errorResponse = new ErrorResponse("The user is already enrolled in this course.");
+            return ResponseEntity.badRequest().body(errorResponse);
+        } catch (CourseInactiveException e) {
+            ErrorResponse errorResponse = new ErrorResponse("The course is inactive and does not accept new registrations.");
+            return ResponseEntity.badRequest().body(errorResponse);
         } catch (Exception e) {
             logger.error("Internal error creating course", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+        return null;
     }
 }
+

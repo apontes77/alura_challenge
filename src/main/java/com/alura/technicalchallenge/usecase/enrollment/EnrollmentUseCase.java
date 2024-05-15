@@ -5,6 +5,8 @@ import com.alura.technicalchallenge.domain.CourseEntity;
 import com.alura.technicalchallenge.domain.EnrollmentEntity;
 import com.alura.technicalchallenge.domain.UserEntity;
 import com.alura.technicalchallenge.domain.enums.CourseStatus;
+import com.alura.technicalchallenge.domain.exceptions.CourseInactiveException;
+import com.alura.technicalchallenge.domain.exceptions.UserAlreadyEnrolledException;
 import com.alura.technicalchallenge.services.course.CourseService;
 import com.alura.technicalchallenge.services.enrollment.EnrollmentService;
 import com.alura.technicalchallenge.services.user.UserService;
@@ -33,8 +35,8 @@ public class EnrollmentUseCase {
 
         if(enrollmentValidation(enrollmentRequest)) {
 
-            UserEntity user = userService.getUser(enrollmentRequest.getUsername());
-            CourseEntity course = courseService.getCourseByCode(enrollmentRequest.getCode());
+            UserEntity user = userService.getUser(enrollmentRequest.username());
+            CourseEntity course = courseService.getCourseByCode(enrollmentRequest.code());
 
             EnrollmentEntity toBeSaved = new EnrollmentEntity(null, user.getId(), course.getId(), LocalDateTime.now());
             return enrollmentService.register(toBeSaved);
@@ -45,20 +47,29 @@ public class EnrollmentUseCase {
     }
 
     private Boolean enrollmentValidation(EnrollmentRequest request) {
-       return validateThatUserEnrollOnlyOnceAtCourse(request) && validateThatUserOnlyEnrollInActiveCourses(request.getCode());
+       return validateThatUserEnrollOnlyOnceAtCourse(request) && validateThatUserOnlyEnrollInActiveCourses(request.code());
     }
 
     private Boolean validateThatUserOnlyEnrollInActiveCourses(String code) {
         CourseEntity courseByCode = courseService.getCourseByCode(code);
-        return courseByCode.getStatus().equals(CourseStatus.ACTIVE);
+
+        if (!courseByCode.getStatus().equals(CourseStatus.ACTIVE)) {
+            throw new CourseInactiveException();
+        }
+
+        return true;
     }
 
     private Boolean validateThatUserEnrollOnlyOnceAtCourse(EnrollmentRequest request) {
-        UserEntity user = userService.getUser(request.getUsername());
-        CourseEntity course = courseService.getCourseByCode(request.getCode());
+        UserEntity user = userService.getUser(request.username());
+        CourseEntity course = courseService.getCourseByCode(request.code());
 
         Optional<EnrollmentEntity> enrollmentEntity = enrollmentService.findOccurrencesOfUserAndCourse(user.getId(), course.getId());
 
-        return enrollmentEntity.isEmpty();
+        if(enrollmentEntity.isPresent()) {
+            throw new UserAlreadyEnrolledException();
+        }
+
+        return true;
     }
 }
