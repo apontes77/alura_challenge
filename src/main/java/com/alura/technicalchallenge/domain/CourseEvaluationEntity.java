@@ -18,7 +18,7 @@ public class CourseEvaluationEntity {
     private Long id;
     @Column(name = "course_id")
     private Long courseId;
-    private Integer grade;
+    private final Integer grade;
     @Column(name = "grade_explanation_subject")
     private String gradeExplanationSubject;
     @Column(name = "grade_explanation_body")
@@ -30,8 +30,5 @@ public class CourseEvaluationEntity {
         this.grade = grade;
         this.gradeExplanationSubject = gradeExplanationSubject;
         this.gradeExplanationBody = gradeExplanationBody;
-    }
-
-    public CourseEvaluationEntity() {
     }
 }

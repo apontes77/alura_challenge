@@ -4,7 +4,6 @@ import com.alura.technicalchallenge.domain.UserEntity;
 import com.alura.technicalchallenge.domain.enums.Role;
 import com.alura.technicalchallenge.domain.exceptions.UserNotFoundException;
 import com.alura.technicalchallenge.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -7,7 +7,6 @@ import com.alura.technicalchallenge.domain.UserEntity;
 import com.alura.technicalchallenge.services.course_evaluation.CourseEvaluationService;
 import com.alura.technicalchallenge.services.course.CourseService;
 import com.alura.technicalchallenge.services.user.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,9 +23,9 @@ public class CourseEvaluationUseCase {
     }
 
     public void creatingEvaluation(CourseEvaluationRequest request) {
-        CourseEntity courseByCode = courseService.getCourseByCode(request.courseCode());
+        CourseEntity course = courseService.getCourseByCode(request.courseCode());
 
-        UserEntity user = userService.getUser(courseByCode.getInstructor());
+        UserEntity user = userService.getUser(course.getInstructor());
         if(request.grade() < 6) {
             EmailSender.send(user.getEmail(), request.subject(), request.body());
         }
@@ -34,7 +33,7 @@ public class CourseEvaluationUseCase {
         courseEvaluationService.persistEvaluation(
                 new CourseEvaluationEntity(
                         null,
-                        courseByCode.getId(),
+                        course.getId(),
                         request.grade(),
                         request.subject(),
                         request.body()

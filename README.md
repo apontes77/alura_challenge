@@ -1,4 +1,4 @@
-# Case Técnico - Alura
+# Case Técnico
 
 # Descrição:
 
@@ -9,10 +9,10 @@ Implementa alguns casos de uso associados a uma plataforma de gestão e oferta d
     - Listagem de dados de um usuário;
     - Inativação e listagem de cursos;
     - realiza matrícula em um curso;
-    - notifica um instrutor quando houver avaliações de cursos com notas especificas;
+    - simula a notificação para um instrutor quando houver avaliações de cursos com notas especificas;
 
 # Instalação:
-
+""
 Certifique de ter o Java 21 instalado em sua máquina, bem como o Maven.
 
 Sugestão: use o sdkman para tal. Link: https://sdkman.io/

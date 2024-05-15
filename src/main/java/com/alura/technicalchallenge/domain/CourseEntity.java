@@ -35,7 +35,7 @@ public class CourseEntity {
     private LocalDateTime inactivationDate;
 
 
-    public CourseEntity( String name, String code, String instructor, String description, CourseStatus status, LocalDateTime creationDate) {
+    public CourseEntity(String name, String code, String instructor, String description, CourseStatus status, LocalDateTime creationDate) {
         this.name = name;
         this.code = code;
         this.instructor = instructor;
